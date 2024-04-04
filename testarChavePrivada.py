@@ -1,7 +1,7 @@
 import paramiko
 import fDados
 
-def test_ssh_connection(hostname, username, private_key_path, passphrase=None):
+def test_ssh_connection(hostname, port, username, private_key_path, passphrase=None):
     try:
         # Carregar a chave privada
         private_key = paramiko.RSAKey.from_private_key_file(private_key_path, password=passphrase)
@@ -11,7 +11,7 @@ def test_ssh_connection(hostname, username, private_key_path, passphrase=None):
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         # Conectar ao servidor SSH
-        client.connect(hostname=hostname, username=username, pkey=private_key)
+        client.connect(hostname=hostname, port=port, username=username, pkey=private_key, look_for_keys=False)
 
         # Se a conexão foi bem sucedida, imprimir mensagem de sucesso
         print("Conexão SSH bem-sucedida!")
@@ -26,12 +26,13 @@ def test_ssh_connection(hostname, username, private_key_path, passphrase=None):
 try:
     retConfig = fDados.fConfig()
 
-    sHost = retConfig["alianca"]["host"]
-    sUser = retConfig["alianca"]["usuario"]
-    chave_privada_path = retConfig["alianca"]["chave_privada_path"]
-    senha_privada_path = retConfig["alianca"]["senha_privada_path"]
+    sHost = retConfig["alianca"]["host_chave"]
+    sPort = retConfig["alianca"]["port_chave"]
+    sUser = retConfig["alianca"]["user_chave"]
+    sFile = retConfig["alianca"]["file_chave"]
+    sPwd = retConfig["alianca"]["pwd_chave"]
 
     # Testar a conexão SSH
-    test_ssh_connection(sHost, sUser, chave_privada_path, senha_privada_path)
+    test_ssh_connection(sHost, sPort, sUser, sFile, sPwd)
 except Exception as e:
     print("Erro ao carregar informações de conexão:", e)

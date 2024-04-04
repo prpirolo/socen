@@ -5,15 +5,17 @@ def retAcesso():
         dados = json.load(acesso)
 
     cliente = dados["alianca"]
-    host = cliente["host"]
-    usuario = cliente["usuario"]
-    senha = cliente["senha"]
     SOCEN = cliente["SOCEN"]
-    origem = cliente["origem"]
+    origem = cliente["outbound_chave"]
     destino = SOCEN["destino"]
     prefixoArq = SOCEN["prefixoArq"]
+    kHost = cliente["host_chave"]
+    kPort = cliente["port_chave"]
+    kUser = cliente["user_chave"]
+    kFile = cliente["file_chave"]
+    kPwd = cliente["pwd_chave"]
 
-    return (host,usuario,senha,SOCEN,origem,destino,prefixoArq)
+    return (SOCEN,origem,destino,prefixoArq,kHost, kPort, kUser, kFile, kPwd)
 
 def fConfig():
         with open('dados.json', 'r', encoding='utf-8-sig') as arqJson:
