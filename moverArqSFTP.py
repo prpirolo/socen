@@ -5,17 +5,20 @@ import datetime as dt
 import os
 
 
-def test_ssh_connection(hostname, port, username, private_key_path, passphrase):
+def test_ssh_connection(hostname, port, username, private_key_path, passphrase, password):
     try:
         # Carregar a chave privada
         private_key = paramiko.RSAKey.from_private_key_file(private_key_path, password=passphrase)
 
         # Criar cliente SSH
         client = paramiko.SSHClient()
+        client.load_system_host_keys()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         # Conectar ao servidor SSH
-        client.connect(hostname=hostname, port=port, username=username, pkey=private_key, look_for_keys=False)
+        #client.connect(hostname=hostname, port=port, username=username, pkey=private_key, look_for_keys=False)
+        client.connect(hostname=hostname, port=port, username=username, password=password, banner_timeout=10,
+                       auth_timeout=10, timeout=10, allow_agent=False, look_for_keys=False)
 
         # Se a conexão foi bem sucedida, imprimir mensagem de sucesso
         print("Conexão SSH bem-sucedida!")
@@ -31,22 +34,23 @@ def test_ssh_connection(hostname, port, username, private_key_path, passphrase):
 try:
 
     retConfig = fDados.fConfig()
+    ambiente = "HOMOLOGACAO"
+    #ambiente = "PRODUCAO"
 
-    print("aqui...")
     totDias = retConfig["alianca"]["qtosDias"]
     sDestino = retConfig["alianca"]["SOCEN"]["destino"]
     sPrefixo = retConfig["alianca"]["SOCEN"]["prefixoArq"]
     sDestinoNOTFIS = retConfig["alianca"]["NOTFIS"]["destino"]
     sPrefixoNOTFIS = retConfig["alianca"]["NOTFIS"]["prefixoArq"]
     sOutBound = retConfig["alianca"]["outbound_chave"]
-    sHost = retConfig["alianca"]["host_chave"]
-    sPort = retConfig["alianca"]["port_chave"]
-    sUser = retConfig["alianca"]["user_chave"]
-    sFile = retConfig["alianca"]["file_chave"]
-    sPwd = retConfig["alianca"]["pwd_chave"]
+    sHost = retConfig["alianca"][ambiente]["host_chave"]
+    sPort = retConfig["alianca"][ambiente]["port_chave"]
+    sUser = retConfig["alianca"][ambiente]["user_chave"]
+    sFile = retConfig["alianca"][ambiente]["file_chave"]
+    sPwd = retConfig["alianca"][ambiente]["pwd_chave"]
 
     # Testar a conexão SSH
-    client = test_ssh_connection(sHost, sPort, sUser, sFile, sPwd)
+    client = test_ssh_connection(sHost, sPort, sUser, sFile, sPwd, sPwd)
 
     if client:
 
