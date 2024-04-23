@@ -25,12 +25,15 @@ def test_ssh_connection(hostname, port, username, private_key_path, passphrase=N
 # Importar as informações de conexão do arquivo fDados.py
 try:
     retConfig = fDados.fConfig()
+    #ambiente = "HOMOLOGACAO"
+    ambiente = "PRODUCAO"
 
-    sHost = retConfig["alianca"]["host_chave"]
-    sPort = retConfig["alianca"]["port_chave"]
-    sUser = retConfig["alianca"]["user_chave"]
-    sFile = retConfig["alianca"]["file_chave"]
-    sPwd = retConfig["alianca"]["pwd_chave"]
+    sHost = retConfig["alianca"][ambiente]["host_chave"]
+    sPort = retConfig["alianca"][ambiente]["port_chave"]
+    sUser = retConfig["alianca"][ambiente]["user_chave"]
+    sFile = retConfig["alianca"][ambiente]["file_chave"]
+    sPwd = retConfig["alianca"][ambiente]["pwd_chave"]
+
 
     # Testar a conexão SSH
     test_ssh_connection(sHost, sPort, sUser, sFile, sPwd)
