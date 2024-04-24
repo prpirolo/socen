@@ -150,12 +150,12 @@ try:
             if nomeInicialArq in image:
                 if removerArq:
                     removidos = removidos + 1
-                    sftp.remove(sOrigem + image)
+                    sftp.remove(sOutBound + image)
 
             if nomeInicialArqNOTFIS in image:
                 if removerArq:
                     removidosNOTFIS = removidosNOTFIS + 1
-                    sftp.remove(sOrigem + image)
+                    sftp.remove(sOutBound + image)
 
         with open(arqLog, 'a', encoding='utf-8-sig') as arqlog:
             arqlog.write('- Foram removidos em ' + str(dataremove) + ' ')
