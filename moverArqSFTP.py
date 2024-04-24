@@ -55,7 +55,7 @@ try:
     sUser = retConfig["alianca"][ambiente]["user_chave"]
     sFile = retConfig["alianca"][ambiente]["file_chave"]
     sPwd = retConfig["alianca"][ambiente]["pwd_chave"]
-    log_message("Variáveis de configuração definidas.")
+    #log_message("Variáveis de configuração definidas.")
 
     # Testar a conexão SSH
     client = test_ssh_connection(sHost, sPort, sUser, sFile, sPwd, sPwd)
@@ -65,14 +65,14 @@ try:
         log_message("Não foi possível estabelecer uma conexão SSH.")
 
     if client:
-        log_message("Conectado...")
+        #log_message("Conectado...")
 
         sftp = client.open_sftp()
         arqs = sftp.listdir(sOutBound)
 
         # Verificar se a pasta de destino não está vazia
         if arqs:
-            log_message("Foram encontrados arquivos na pasta de destino.")
+            log_message(f"Foram encontrados {len(arqs)} arquivos na pasta de destino.")
             # Adicione aqui qualquer ação que você queira realizar se houver arquivos na pasta de destino
         else:
             log_message("Nenhum arquivo encontrado na pasta de destino.")
@@ -113,12 +113,12 @@ try:
                             copiado = 1
 
                     if copiado == 0:
-                        log_message("Arquivo " + image + " sendo copiado...")
+                        #log_message("Arquivo " + image + " sendo copiado...")
                         sftp.get(sOutBound + image, sDestino + image)
                         copiados = copiados + 1
                         totarqs = totarqs + 1
                     else:
-                        log_message("Arquivo " + image + " já copiado.")
+                        #log_message("Arquivo " + image + " já copiado.")
                         totarqs = totarqs + 1
 
                 if nomeInicialArqNOTFIS in image:
@@ -128,12 +128,12 @@ try:
                             copiadoNOTFIS = 1
 
                     if copiadoNOTFIS == 0:
-                        log_message("Arquivo " + image + " sendo copiado...")
+                        #log_message("Arquivo " + image + " sendo copiado...")
                         sftp.get(sOutBound + image, sDestinoNOTFIS + image)
                         copiadosNOTFIS = copiadosNOTFIS + 1
                         totarqsNOTFIS = totarqsNOTFIS + 1
                     else:
-                        log_message("Arquivo " + image + " já copiado.")
+                        #log_message("Arquivo " + image + " já copiado.")
                         totarqsNOTFIS = totarqsNOTFIS + 1
 
             with open(arqLog, 'a', encoding='utf-8-sig') as arqlog:

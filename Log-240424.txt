@@ -1,0 +1,6 @@
+﻿24/04/24 17:29 - Iniciando o serviço...
+24/04/24 17:29 - Ambiente definido: PRODUCAO
+24/04/24 17:29 - Conexão SSH bem-sucedida.
+24/04/24 17:29 - Foram encontrados 45 arquivos na pasta de destino.
+24/04/24 17:29h [SOCEN 0/0 NOTFIS 0/0] [SOCEN 0/0 NOTFIS 0/0] [SOCEN 0/0 NOTFIS 0/0] [SOCEN 0/2 NOTFIS 0/0] [SOCEN 0/0 NOTFIS 0/0] [SOCEN 0/31 NOTFIS 0/7] - Removidos SOCEN: 0 NOTFIS: 0
+24/04/24 17:29 - Serviço finalizado com sucesso.
